@@ -1,19 +1,148 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <title>G5 Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>G5 Science - Digital Reader</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container-custom {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .btn-reader {
+      display: inline-block;
+      width: 100%;
+      padding: 16px;
+      margin: 12px 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-reader:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn-reader:active {
+      transform: translateY(0);
+    }
+
+    .icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    .feature-list {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .feature-list h3 {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .feature-item {
+      display: flex;
+      margin: 10px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .feature-item:before {
+      content: "✓";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .container-custom {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .btn-reader {
+        font-size: 16px;
+        padding: 14px;
+      }
+    }
+  </style>
 </head>
 
-<body style="height: 100%">
-  <div id="sadScreen" style="display: none; position: relative; top: 20%; text-align: center;">
-    <img src="images/sad.svg" alt="sad" width="150" height="150">
-    <p id="noLocal" style="display: none;">Sorry, due to browser security restrictions, this content does not work from a file URL. Please upload it to a web server.</p>
-    <p id="noIE" style="display: none;">Sorry, Internet Explorer is not supported. Please use another browser.</p>
+<body>
+  <div class="container-custom">
+    <h1>📚 G5 Science</h1>
+    <p class="subtitle">Digital Learning Reader - Interactive Content</p>
+
+    <a href="index-standalone.html" class="btn-reader">
+      <span class="icon">▶</span> Open Reader
+    </a>
+
+    <a href="index-standalone.html?startPage=1" class="btn-reader">
+      <span class="icon">📖</span> Start from Beginning
+    </a>
+
+    <div class="feature-list">
+      <h3>Features:</h3>
+      <div class="feature-item">Interactive page navigation</div>
+      <div class="feature-item">Read-aloud functionality</div>
+      <div class="feature-item">Responsive design</div>
+      <div class="feature-item">Multi-language support</div>
+      <div class="feature-item">Search capability</div>
+      <div class="feature-item">Mobile friendly</div>
+    </div>
   </div>
 
-  <script type="text/javascript">
+  <script>
+    // Fallback: if accessed from WebView, redirect appropriately
     function getCookie(name) {
       const ca = document.cookie.split(';');
       const caLen = ca.length;
@@ -29,17 +158,9 @@
     }
 
     if (navigator.userAgent.indexOf("XReaderWebView") >= 0) {
-      window.location.href = "index-hybrid.html" + window.location.search;
-    } else if (document.location.protocol == "file:") {
-      document.querySelector("#sadScreen").style.display = "block";
-      document.querySelector("#noLocal").style.display = "block";
-    } else if (navigator.userAgent.indexOf("MSIE ") >= 0 || navigator.userAgent.indexOf("Trident/") >= 0) {
-      document.querySelector("#sadScreen").style.display = "block";
-      document.querySelector("#noIE").style.display = "block";
+      window.location.href = "index-hybrid.html";
     } else if (getCookie("xreaderjs_url")) {
-      window.location.href = "index-shelf.html" + window.location.search;
-    } else {
-      window.location.href = "index-standalone.html" + window.location.search;
+      window.location.href = "index-shelf.html";
     }
   </script>
 </body>
