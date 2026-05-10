@@ -123,11 +123,19 @@
     <p class="subtitle">Digital Learning Reader - Interactive Content</p>
 
     <a href="index-standalone.html" class="btn-reader">
-      <span class="icon">▶</span> Open Reader
+      <span class="icon">▶</span> Open Standalone Reader
     </a>
 
     <a href="index-standalone.html?startPage=1" class="btn-reader">
-      <span class="icon">📖</span> Start from Beginning
+      <span class="icon">📖</span> Start Standalone from Page 1
+    </a>
+
+    <a href="index-shelf.html" class="btn-reader">
+      <span class="icon">🗂</span> Open Shelf Mode
+    </a>
+
+    <a href="index-hybrid.html" class="btn-reader">
+      <span class="icon">📱</span> Open Hybrid Mode
     </a>
 
     <div class="feature-list">
@@ -141,28 +149,6 @@
     </div>
   </div>
 
-  <script>
-    // Fallback: if accessed from WebView, redirect appropriately
-    function getCookie(name) {
-      const ca = document.cookie.split(';');
-      const caLen = ca.length;
-      const cookieName = name + "=";
-      let c;
-      for (let i = 0; i < caLen; i += 1) {
-        c = ca[i].replace(/^\s+/g, '');
-        if (c.indexOf(cookieName) === 0) {
-          return c.substring(cookieName.length, c.length);
-        }
-      }
-      return '';
-    }
-
-    if (navigator.userAgent.indexOf("XReaderWebView") >= 0) {
-      window.location.href = "index-hybrid.html";
-    } else if (getCookie("xreaderjs_url")) {
-      window.location.href = "index-shelf.html";
-    }
-  </script>
 </body>
 
 </html>
