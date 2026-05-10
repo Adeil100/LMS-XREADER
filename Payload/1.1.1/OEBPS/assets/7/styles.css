@@ -1,0 +1,323 @@
+div.SCContent {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.SCAnimation canvas {
+	/*
+	-ms-transform: scale(0.5);
+	-moz-transform: scale(0.5);
+	-webkit-transform: scale(0.5);
+	transform: scale(0.5);
+	-ms-transform-origin: 0px 0px;
+	-moz-transform-origin: 0px 0px;
+	-webkit-transform-origin: 0px 0px;
+	transform-origin: 0px 0px;
+	*/
+	pointer-events: none;
+}
+
+
+div#obj855 {
+position: absolute;
+overflow: hidden;
+top: 3px;
+left: 0px;
+width: 1366px;
+height: 765px;
+opacity: 1;
+z-index: 0;
+display:block;
+pointer-events: none;
+
+
+user-select: none;  
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+
+}
+img#obj855_img {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 1366px;
+	height: 765px;
+}
+div#obj835 {
+position: absolute;
+overflow: hidden;
+top: 21px;
+left: 30px;
+width: 455px;
+height: 401px;
+opacity: 1;
+z-index: 7;
+display:block;
+pointer-events: none;
+
+
+user-select: none;  
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+
+}
+img#obj835_img {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 455px;
+	height: 401px;
+}
+
+div#obj786 {
+position: absolute;
+overflow: hidden;
+top: 5px;
+left: 649px;
+width: 316px;
+height: 33px;
+opacity: 1;
+z-index: 5;
+display:block;
+pointer-events: auto;
+
+user-select: text;  
+-moz-user-select: text;
+-webkit-user-select: text;
+-ms-user-select: text;
+
+font-family: "Alexandria-800";
+font-size: 18px;
+color: #FFFFFF;
+}
+
+div#obj786_content {
+
+}
+div#obj784 {
+position: absolute;
+overflow: hidden;
+top: 8px;
+left: 1003px;
+width: 268px;
+height: 33px;
+opacity: 1;
+z-index: 4;
+display:block;
+pointer-events: auto;
+
+user-select: text;  
+-moz-user-select: text;
+-webkit-user-select: text;
+-ms-user-select: text;
+
+font-family: "Alexandria-800";
+font-size: 21px;
+color: #FFFFFF;
+}
+
+div#obj784_content {
+
+}
+div#obj782 {
+position: absolute;
+overflow: hidden;
+top: 15px;
+left: 70px;
+width: 294px;
+height: 20px;
+opacity: 1;
+z-index: 3;
+display:block;
+pointer-events: auto;
+
+user-select: text;  
+-moz-user-select: text;
+-webkit-user-select: text;
+-ms-user-select: text;
+
+font-family: "Alexandria-800";
+font-size: 12px;
+color: #FFFFFF;
+}
+
+div#obj782_content {
+
+}
+div#obj837 {
+position: absolute;
+overflow: hidden;
+top: 271px;
+left: 217px;
+width: 137px;
+height: 103px;
+opacity: 1;
+z-index: 8;
+display:block;
+pointer-events: auto;
+
+user-select: text;  
+-moz-user-select: text;
+-webkit-user-select: text;
+-ms-user-select: text;
+
+font-size: 26px;
+color: #181616;
+}
+
+div#obj837_content {
+
+}
+div#obj833 {
+position: absolute;
+overflow: hidden;
+top: 417px;
+left: 763px;
+width: 507px;
+height: 276px;
+opacity: 1;
+z-index: 6;
+display:block;
+pointer-events: auto;
+
+user-select: text;  
+-moz-user-select: text;
+-webkit-user-select: text;
+-ms-user-select: text;
+
+color: #FFFFFF;
+}
+
+div#obj833_content {
+
+}
+
+
+
+div#obj780 {
+position: absolute;
+overflow: hidden;
+top: 0px;
+left: 0px;
+width: 982px;
+height: 42px;
+opacity: 1;
+z-index: 2;
+display:block;
+pointer-events: none;
+
+
+user-select: none;  
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+
+background-image: none;
+border-color: #000000;
+border-width: 0px;
+border-style: solid;
+border-radius: 0px;
+-moz-border-radius: 0px;
+-webkit-border-radius: 0px;
+background-color: #007EFF;
+background-repeat: repeat;
+}
+div#obj778 {
+position: absolute;
+overflow: hidden;
+top: 0px;
+left: 981px;
+width: 385px;
+height: 42px;
+opacity: 1;
+z-index: 1;
+display:block;
+pointer-events: none;
+
+
+user-select: none;  
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+
+background-image: none;
+border-color: #000000;
+border-width: 0px;
+border-style: solid;
+border-radius: 0px;
+-moz-border-radius: 0px;
+-webkit-border-radius: 0px;
+background-color: #1D2630;
+background-repeat: repeat;
+}
+
+
+
+
+
+
+/* This defines look and size of the card */
+
+div#obj883 {
+position: absolute;
+overflow: hidden;
+top: 514px;
+left: 53px;
+width: 653px;
+height: 178px;
+opacity: 1;
+z-index: 9;
+display:block;
+pointer-events: auto;
+
+
+user-select: none;  
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+
+}
+
+div#obj883 .card-inner {
+    padding:  5px; /* distance between border and image */
+    height:  59px; 
+    width:   185px;
+    background-color: #FFFFFF;
+    border: 1px solid #444444;
+    border-radius: 8px;
+}
+
+/* This defines the card grid cell */
+div#obj883 .card {
+    margin:  5px; /* distance between cards column */
+    height: 71px; /* this have to be .card-inner->height + .card-inner->padding */
+    width:  197px; /* this have to be .card-inner->width + .card-inner->padding */    
+}
+
+/* This defines look and size gameboard area */
+div#obj883.card-table {
+    padding: 5px; /* this have to be .cart->margin */
+    /*border: none; 
+    border-radius: 10px;
+    background-color: transparent;*/
+}
+
+
+
+
+
+body {
+font-family: Lato, Arial, Helvetica, Sans-Serif;
+font-size: 20px;
+line-height: 1.2;
+color: #000000
+}
+p, h1, h2, h3, h4, h5, h6 { margin: 0px; padding: 0px; }
+:link { color: #0A52A2; }
+:visited { color: #5B2599; }
+
+.SCPage {
+background-color: #FFFFFF
+}

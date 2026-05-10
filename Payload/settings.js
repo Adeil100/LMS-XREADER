@@ -1,0 +1,1 @@
+PubViewer.Document.Settings = {"appIdentifier":"E74255A65F623D40851A591E33AE809B","appName":"G5 Science","backgroundColor":"#EFEEE8","facingPagesInLandscape":false,"lockOrientation":false,"restoreLatestPage":true};
