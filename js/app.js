@@ -1077,13 +1077,16 @@ XReader.js Version ${xreader.Environment.AppVersion}`, "font-family: monospace; 
 		var startIndex = pageNumber - (useDoublePage && pageNumber % 2 != 0 ? 2 : 1);
 		var index = startIndex;
 		var baseUrl = app.rendition.contentsUrl;
+		var getPreviewUrl = function(page) {
+			return baseUrl + (page.thumbnailImageUrl || page.loadingImageUrl || "");
+		};
 
 		var pageOne = (index >= 0 ?
 			baseUrl + app.rendition.data.pages[index].url : "");
 		var pageObjectOne = pageOne.length > 0 ? app.rendition.data.pages[index] : null;
 
 		var thumbOne = (index >= 0 ?
-			baseUrl + app.rendition.data.pages[index].loadingImageUrl : "");
+			getPreviewUrl(app.rendition.data.pages[index]) : "");
 
 		var pageTwo = (useDoublePage && ++index < app.rendition.data.pages.length ?
 			baseUrl + app.rendition.data.pages[index].url : "");
@@ -1091,21 +1094,21 @@ XReader.js Version ${xreader.Environment.AppVersion}`, "font-family: monospace; 
 		var endIndex = pageTwo.length > 0 ? index : startIndex;
 
 		var thumbTwo = (useDoublePage && index < app.rendition.data.pages.length ?
-			baseUrl + app.rendition.data.pages[index].loadingImageUrl : "");
+			getPreviewUrl(app.rendition.data.pages[index]) : "");
 
 		var thumbRightOne = (++index < app.rendition.data.pages.length ?
-			baseUrl + app.rendition.data.pages[index].loadingImageUrl : "");
+			getPreviewUrl(app.rendition.data.pages[index]) : "");
 
 		var thumbRightTwo = (useDoublePage && ++index < app.rendition.data.pages.length ?
-			baseUrl + app.rendition.data.pages[index].loadingImageUrl : "");
+			getPreviewUrl(app.rendition.data.pages[index]) : "");
 
 		index = startIndex - 1;
 
 		var thumbLeftOne = (index >= 0 ?
-			baseUrl + app.rendition.data.pages[index].loadingImageUrl : "");
+			getPreviewUrl(app.rendition.data.pages[index]) : "");
 
 		var thumbLeftTwo = (useDoublePage && --index >= 0 ?
-			baseUrl + app.rendition.data.pages[index].loadingImageUrl : "");
+			getPreviewUrl(app.rendition.data.pages[index]) : "");
 
 		if (useDoublePage) {
 			var tmp = thumbLeftTwo; thumbLeftTwo = thumbLeftOne; thumbLeftOne = tmp;

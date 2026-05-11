@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookID" version="3.0" prefix="rendition: http://www.idpf.org/vocab/rendition/# ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" xml:lang="en" >
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
 <!-- METADATA -->
@@ -15,7 +15,7 @@
 	<dc:description>Powered by PubCoder</dc:description>
 	<dc:publisher>Ibtikar</dc:publisher>
 	<dc:date>2026-03-23</dc:date>
-	<dc:rights>© 2026 Ibtikar</dc:rights>
+	<dc:rights>Â© 2026 Ibtikar</dc:rights>
 	<dc:language>en</dc:language>
 	<dc:identifier id="BookID">73994C6C4A856E4C80FC69F1456DD34F</dc:identifier>
 	<meta name="cover" content="cover-image" />
@@ -172,7 +172,7 @@ jpeg"/>
 <item id="obj20_image" href="assets/images/obj20_image.png" media-type="image/png" />
 <item id="audio25" href="assets/audio/Space-Continuum.wav" media-type="audio/x-wav" />
 <item id="thumbnail1" href="assets/1/thumbnail.png" media-type="image/png" />
-<item id="loading1" href="assets/1/loading.jpg" media-type="image/jpeg" />
+<item id="loading1" href="assets/1/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -206,7 +206,7 @@ jpeg"/>
 <item id="image29" href="assets/images/Rewards.gif" media-type="image/gif" />
 <item id="image30" href="assets/images/Knowledge.gif" media-type="image/gif" />
 <item id="thumbnail2" href="assets/2/thumbnail.png" media-type="image/png" />
-<item id="loading2" href="assets/2/loading.jpg" media-type="image/jpeg" />
+<item id="loading2" href="assets/2/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -224,7 +224,7 @@ jpeg"/>
 <item id="obj319_image" href="assets/images/obj319_image.png" media-type="image/png" />
 <item id="image31" href="assets/images/Warning-animation.gif" media-type="image/gif" />
 <item id="thumbnail3" href="assets/3/thumbnail.png" media-type="image/png" />
-<item id="loading3" href="assets/3/loading.jpg" media-type="image/jpeg" />
+<item id="loading3" href="assets/3/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -240,7 +240,7 @@ jpeg"/>
 <item id="obj1028_image" href="assets/images/obj1028_image.jpeg" media-type="image/jpeg" />
 <item id="obj469_image" href="assets/images/obj469_image.png" media-type="image/png" />
 <item id="thumbnail4" href="assets/4/thumbnail.png" media-type="image/png" />
-<item id="loading4" href="assets/4/loading.jpg" media-type="image/jpeg" />
+<item id="loading4" href="assets/4/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -258,7 +258,7 @@ jpeg"/>
 <item id="obj1274_image" href="assets/images/obj1274_image.png" media-type="image/png" />
 <item id="obj658_image" href="assets/images/obj658_image.png" media-type="image/png" />
 <item id="thumbnail5" href="assets/5/thumbnail.png" media-type="image/png" />
-<item id="loading5" href="assets/5/loading.jpg" media-type="image/jpeg" />
+<item id="loading5" href="assets/5/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -272,7 +272,7 @@ jpeg"/>
       />
 <item id="image41" href="assets/images/earth-sun-rays.png" media-type="image/png" />
 <item id="thumbnail6" href="assets/6/thumbnail.png" media-type="image/png" />
-<item id="loading6" href="assets/6/loading.jpg" media-type="image/jpeg" />
+<item id="loading6" href="assets/6/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -290,7 +290,7 @@ jpeg"/>
 <item id="memoryGame883_card2" href="assets/images/memoryGame883_card2.png" media-type="image/png" />
 <item id="memoryGame883_card3" href="assets/images/memoryGame883_card3.png" media-type="image/png" />
 <item id="thumbnail7" href="assets/7/thumbnail.png" media-type="image/png" />
-<item id="loading7" href="assets/7/loading.jpg" media-type="image/jpeg" />
+<item id="loading7" href="assets/7/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -303,7 +303,7 @@ jpeg"/>
       
       />
 <item id="thumbnail8" href="assets/8/thumbnail.png" media-type="image/png" />
-<item id="loading8" href="assets/8/loading.jpg" media-type="image/jpeg" />
+<item id="loading8" href="assets/8/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -317,7 +317,7 @@ jpeg"/>
       />
 <item id="obj1187_image" href="assets/images/obj1187_image.jpeg" media-type="image/jpeg" />
 <item id="thumbnail9" href="assets/9/thumbnail.png" media-type="image/png" />
-<item id="loading9" href="assets/9/loading.jpg" media-type="image/jpeg" />
+<item id="loading9" href="assets/9/thumbnail.png" media-type="image/jpeg" />
 
 
 
@@ -341,3 +341,4 @@ jpeg"/>
       <reference type="text" title="Story start" href="assets/2/page.xhtml"/>
   </guide>	
 </package>
+
