@@ -135,11 +135,11 @@
 
   <script>
     const baseUrl = window.location.href.replace(/index\.html?(\?.*)?$/i, "");
-    const pdfName = "cls5_F2_Science_StudentBook 1 (1).pdf";
-    const epubName = "Business Grade 10 Term 3.epub";
+    const pdfUrl = "https://github.com/Adeil100/LMS-XREADER/releases/download/v1.0.0/cls5_F2_Science_StudentBook.1.1.pdf";
+    const epubUrl = "https://github.com/Adeil100/LMS-XREADER/releases/download/v1.0.0/Business.Grade.10.Term.3.epub";
 
-    document.getElementById("pdfLink").href = encodeURI(baseUrl + pdfName);
-    document.getElementById("epubLink").href = encodeURI(baseUrl + epubName);
+    document.getElementById("pdfLink").href = pdfUrl;
+    document.getElementById("epubLink").href = epubUrl;
     document.getElementById("currentUrl").textContent = baseUrl;
   </script>
 </body>
