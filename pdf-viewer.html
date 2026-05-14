@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDF Viewer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    header {
+      background: #16213e;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    header a {
+      color: #7ec8e3;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    header a:hover { text-decoration: underline; }
+
+    header h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0.85;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #viewer {
+      flex: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    #loading {
+      position: absolute;
+      inset: 60px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #1a1a2e;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255,255,255,0.15);
+      border-top-color: #7ec8e3;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html">← Back</a>
+    <h1>📄 PDF Viewer — Science Student Book</h1>
+  </header>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <span>Loading PDF… this may take a moment</span>
+  </div>
+
+  <iframe
+    id="viewer"
+    src=""
+    allowfullscreen
+    onload="document.getElementById('loading').style.display='none'">
+  </iframe>
+
+  <script>
+    const pdfUrl = "https://github.com/Adeil100/LMS-XREADER/releases/download/v1.0.0/cls5_F2_Science_StudentBook.1.1.pdf";
+    document.getElementById("viewer").src =
+      "https://docs.google.com/viewer?url=" + encodeURIComponent(pdfUrl) + "&embedded=true";
+  </script>
+
+</body>
+</html>
