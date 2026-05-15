@@ -388,6 +388,10 @@
       const doc = iframe.contentDocument;
       if (!doc) return;
 
+      // Keep each EPUB document in fixed-page mode with no wheel scrolling.
+      doc.documentElement.style.overflow = 'hidden';
+      if (doc.body) doc.body.style.overflow = 'hidden';
+
       doc.querySelectorAll('a[href]').forEach((anchor) => {
         const href = anchor.getAttribute('href') || '';
         const mappedUrl = findMappedVideoUrl(href);
@@ -410,6 +414,10 @@
         event.stopPropagation();
         openInteractiveFrame(mappedUrl);
       }, true);
+
+      doc.addEventListener('wheel', (event) => {
+        event.preventDefault();
+      }, { passive: false });
     }
 
     function updatePageInfo() {
