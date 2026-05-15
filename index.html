@@ -115,22 +115,22 @@
 
   <div class="buttons">
 
-    <a class="btn btn-epub" href="index-standalone.html">
-      <span class="icon">📚</span>
-      <span class="label">EPUB Viewer</span>
-      <span class="sub">Interactive web reader</span>
+    <a class="btn btn-reader" href="index-standalone.html">
+      <span class="icon">✨</span>
+      <span class="label">after transormation</span>
+      <span class="sub">Interactive reader</span>
     </a>
 
     <a class="btn btn-pdf" href="pdf-viewer.html">
-      <span class="icon">📄</span>
-      <span class="label">PDF Viewer</span>
-      <span class="sub">Read PDF in browser</span>
+      <span class="icon">📕</span>
+      <span class="label">PDF books</span>
+      <span class="sub">View PDF in browser</span>
     </a>
 
-    <a id="btnRelease" class="btn btn-reader" href="#" target="_blank" rel="noopener noreferrer">
-      <span class="icon">⬇️</span>
-      <span class="label">Download Files</span>
-      <span class="sub">All formats on GitHub</span>
+    <a class="btn btn-epub" href="epub-viewer.html">
+      <span class="icon">📗</span>
+      <span class="label">Epub for MoE</span>
+      <span class="sub">View EPUB in browser</span>
     </a>
 
   </div>
@@ -138,8 +138,6 @@
   <footer>Hosted on GitHub Pages &mdash; <span id="footerUrl"></span></footer>
 
   <script>
-    const releaseUrl = "https://github.com/Adeil100/LMS-XREADER/releases/tag/v1.0.0";
-    document.getElementById("btnRelease").href = releaseUrl;
     document.getElementById("footerUrl").textContent = window.location.href.replace(/index\.html?(\?.*)?$/i, "");
   </script>
 

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EPUB Viewer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    header {
+      background: #16213e;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    header a {
+      color: #7ec8e3;
+      text-decoration: none;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    header a:hover { text-decoration: underline; }
+
+    header h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0.85;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .controls button {
+      background: rgba(126,200,227,0.2);
+      color: #7ec8e3;
+      border: 1px solid #7ec8e3;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .controls button:hover { background: rgba(126,200,227,0.35); }
+    .controls button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #viewer {
+      flex: 1;
+      overflow: auto;
+      padding: 20px;
+    }
+
+    #book { width: 100%; max-width: 800px; margin: 0 auto; }
+
+    #loading {
+      position: absolute;
+      inset: 60px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #1a1a2e;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255,255,255,0.15);
+      border-top-color: #7ec8e3;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="index.html">← Back</a>
+    <h1>📗 EPUB Viewer — Grade 10 Term 3</h1>
+    <div class="controls">
+      <button id="prevBtn" onclick="prevPage()">← Prev</button>
+      <span id="pageNum">Page 1</span>
+      <button id="nextBtn" onclick="nextPage()">Next →</button>
+    </div>
+  </header>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <span>Loading EPUB… this may take a moment</span>
+  </div>
+
+  <div id="viewer">
+    <div id="book"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.88/dist/epub.min.js"></script>
+
+  <script>
+    const epubUrl = "https://github.com/Adeil100/LMS-XREADER/releases/download/v1.0.0/Business.Grade.10.Term.3.epub";
+    const book = ePub(epubUrl);
+    const rendition = book.renderTo("book", { width: "100%", height: 600 });
+    let currentLocation = 0;
+
+    rendition.display().then(() => {
+      document.getElementById("loading").style.display = "none";
+      updatePageNumber();
+    }).catch(err => {
+      document.getElementById("loading").innerHTML = '<span style="color: #ff6b6b;">Failed to load EPUB. Please try again.</span>';
+      console.error(err);
+    });
+
+    function nextPage() {
+      rendition.next();
+      updatePageNumber();
+    }
+
+    function prevPage() {
+      rendition.prev();
+      updatePageNumber();
+    }
+
+    function updatePageNumber() {
+      rendition.currentLocation().then(loc => {
+        currentLocation = loc.start.percentage;
+        const percent = Math.round(currentLocation * 100);
+        document.getElementById("pageNum").textContent = percent + "%";
+        document.getElementById("prevBtn").disabled = percent <= 0;
+        document.getElementById("nextBtn").disabled = percent >= 100;
+      });
+    }
+
+    // Update on page change
+    rendition.on("relocated", updatePageNumber);
+    rendition.on("keydown", updatePageNumber);
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") nextPage();
+      if (e.key === "ArrowLeft") prevPage();
+    });
+  </script>
+
+</body>
+</html>
