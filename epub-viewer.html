@@ -70,24 +70,131 @@
 
     #viewer {
       flex: 1;
-      overflow: auto;
-      padding: 20px;
-    }
-
-    #viewer {
-      flex: 1;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #111;
+      padding: 20px;
+      background:
+        radial-gradient(circle at top, rgba(126,200,227,0.14), transparent 34%),
+        linear-gradient(180deg, #111827 0%, #090b12 100%);
     }
 
-    #pageFrame {
+    .spread {
+      width: min(96vw, 1500px);
+      height: min(92vh, 980px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+    }
+
+    .pageShell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    .pageShell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    #leftFrame,
+    #rightFrame {
       width: 100%;
       height: 100%;
       border: none;
       background: #fff;
+    }
+
+    #rightFrame.missing {
+      background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    }
+
+    .pageLabel {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 3;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.72);
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    #interactiveModal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6, 8, 14, 0.82);
+      z-index: 9999;
+      padding: 24px;
+    }
+
+    #interactiveModal.open {
+      display: flex;
+    }
+
+    .modalPanel {
+      position: relative;
+      width: min(96vw, 1100px);
+      height: min(88vh, 820px);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 35px 120px rgba(0, 0, 0, 0.6);
+    }
+
+    .modalClose {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .modalClose:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    #interactiveFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
+    }
+
+    @media (max-width: 980px) {
+      .spread {
+        grid-template-columns: 1fr;
+        height: min(92vh, 1200px);
+      }
     }
   </style>
 </head>
@@ -105,7 +212,23 @@
   </header>
 
   <div id="viewer">
-    <iframe id="pageFrame" src="book/Grade_10_Unit_1-1.xhtml"></iframe>
+    <div class="spread" aria-label="Two page book spread">
+      <div class="pageShell">
+        <div class="pageLabel">Left Page</div>
+        <iframe id="leftFrame" src="book/Grade_10_Unit_1-1.xhtml"></iframe>
+      </div>
+      <div class="pageShell">
+        <div class="pageLabel">Right Page</div>
+        <iframe id="rightFrame" class="missing" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="interactiveModal" aria-hidden="true">
+    <div class="modalPanel" role="dialog" aria-modal="true" aria-label="Interactive content">
+      <button class="modalClose" id="closeInteractive" aria-label="Close interactive content">×</button>
+      <iframe id="interactiveFrame" allow="autoplay; fullscreen" referrerpolicy="no-referrer"></iframe>
+    </div>
   </div>
 
   <script>
@@ -120,36 +243,6 @@
       'G10_U4_Boys.mp4': `${RELEASES_BASE_URL}/G10_U4_Boys.mp4`,
       'G10_U4_Girls.mp4': `${RELEASES_BASE_URL}/G10_U4_Girls.mp4`
     };
-
-    function findMappedVideoUrl(text) {
-      if (!text) return null;
-      const match = text.match(/G10_[A-Za-z0-9_]+\.mp4/i);
-      if (!match) return null;
-      return videoMappings[match[0]] || null;
-    }
-
-    function rewriteIframeVideoLinks() {
-      const iframe = document.getElementById('pageFrame');
-      if (!iframe || !iframe.contentDocument) return;
-
-      const doc = iframe.contentDocument;
-
-      doc.querySelectorAll('a[href]').forEach((anchor) => {
-        const href = anchor.getAttribute('href');
-        const mappedUrl = findMappedVideoUrl(href);
-        if (mappedUrl) {
-          anchor.setAttribute('href', `javascript:window.open('${mappedUrl}')`);
-        }
-      });
-
-      doc.querySelectorAll('video[src], source[src]').forEach((media) => {
-        const src = media.getAttribute('src');
-        const mappedUrl = findMappedVideoUrl(src);
-        if (mappedUrl) {
-          media.setAttribute('src', mappedUrl);
-        }
-      });
-    }
 
     const pages = [
       'book/Grade_10_Unit_1-1.xhtml',
@@ -263,32 +356,119 @@
       'book/Grade_10_Unit_4-22.xhtml',
       'book/Grade_10_Unit_4-23.xhtml'
     ];
-    
-    let currentPage = 0;
-    const pageFrame = document.getElementById('pageFrame');
 
-    pageFrame.addEventListener('load', () => {
-      rewriteIframeVideoLinks();
-    });
+    const leftFrame = document.getElementById('leftFrame');
+    const rightFrame = document.getElementById('rightFrame');
+    const pageNum = document.getElementById('pageNum');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const interactiveModal = document.getElementById('interactiveModal');
+    const interactiveFrame = document.getElementById('interactiveFrame');
+    const closeInteractive = document.getElementById('closeInteractive');
+
+    let currentPage = 0;
+
+    function findMappedVideoUrl(text) {
+      if (!text) return null;
+      const match = text.match(/G10_[A-Za-z0-9_]+\.mp4/i);
+      if (!match) return null;
+      return videoMappings[match[0]] || null;
+    }
+
+    function buildVideoPlayerHtml(url) {
+      return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden}body{display:flex;align-items:center;justify-content:center}video{width:100%;height:100%;max-width:100%;max-height:100%;background:#000}</style></head><body><video controls autoplay playsinline><source src="${url}" type="video/mp4"></video></body></html>`;
+    }
+
+    function openInteractiveFrame(url) {
+      interactiveFrame.srcdoc = buildVideoPlayerHtml(url);
+      interactiveModal.classList.add('open');
+      interactiveModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeInteractiveFrame() {
+      interactiveFrame.srcdoc = '';
+      interactiveModal.classList.remove('open');
+      interactiveModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function hookIframeInteractions(iframe) {
+      const doc = iframe.contentDocument;
+      if (!doc) return;
+
+      doc.querySelectorAll('a[href]').forEach((anchor) => {
+        const href = anchor.getAttribute('href') || '';
+        const mappedUrl = findMappedVideoUrl(href);
+        if (mappedUrl) {
+          anchor.setAttribute('href', mappedUrl);
+          anchor.setAttribute('target', '_blank');
+          anchor.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+
+      doc.addEventListener('click', (event) => {
+        const anchor = event.target.closest('a[href]');
+        if (!anchor) return;
+
+        const href = anchor.getAttribute('href') || '';
+        const mappedUrl = findMappedVideoUrl(href);
+        if (!mappedUrl) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        openInteractiveFrame(mappedUrl);
+      }, true);
+    }
+
+    function updatePageInfo() {
+      if (pages[currentPage + 1]) {
+        pageNum.textContent = `Pages ${currentPage + 1}-${currentPage + 2} / ${pages.length}`;
+      } else {
+        pageNum.textContent = `Page ${currentPage + 1} / ${pages.length}`;
+      }
+      prevBtn.disabled = currentPage <= 0;
+      nextBtn.disabled = currentPage >= pages.length - 1;
+    }
+
+    function loadSpread() {
+      leftFrame.src = pages[currentPage];
+      rightFrame.classList.toggle('missing', !pages[currentPage + 1]);
+      rightFrame.src = pages[currentPage + 1] || 'about:blank';
+      updatePageInfo();
+    }
 
     function goToPage(n) {
       if (n < 0 || n >= pages.length) return;
-      currentPage = n;
-      document.getElementById('pageFrame').src = pages[currentPage];
-      document.getElementById('pageNum').textContent = `Page ${currentPage + 1} / ${pages.length}`;
-      document.getElementById('prevBtn').disabled = currentPage <= 0;
-      document.getElementById('nextBtn').disabled = currentPage >= pages.length - 1;
+      currentPage = n - (n % 2);
+      loadSpread();
     }
 
-    function nextPage() { goToPage(currentPage + 1); }
-    function prevPage() { goToPage(currentPage - 1); }
+    function nextPage() {
+      goToPage(currentPage + 2);
+    }
+
+    function prevPage() {
+      goToPage(currentPage - 2);
+    }
+
+    leftFrame.addEventListener('load', () => hookIframeInteractions(leftFrame));
+    rightFrame.addEventListener('load', () => hookIframeInteractions(rightFrame));
+    closeInteractive.addEventListener('click', closeInteractiveFrame);
+    interactiveModal.addEventListener('click', (event) => {
+      if (event.target === interactiveModal) closeInteractiveFrame();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && interactiveModal.classList.contains('open')) {
+        closeInteractiveFrame();
+        return;
+      }
+      if (event.key === 'ArrowRight') nextPage();
+      if (event.key === 'ArrowLeft') prevPage();
+    });
 
     goToPage(0);
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextPage();
-      if (e.key === 'ArrowLeft') prevPage();
-    });
   </script>
 
 </body>
