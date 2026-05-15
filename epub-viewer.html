@@ -109,27 +109,47 @@
   </div>
 
   <script>
-     // GitHub Releases configuration for large video files
-     const RELEASES_BASE_URL = 'https://github.com/Adeil100/LMS-XREADER/releases/download/videos-v1';
-     const videoMappings = {
-       'G10_U1_Girls.mp4': `${RELEASES_BASE_URL}/G10_U1_Girls.mp4`,
-       'G10_U2_Girls.mp4': `${RELEASES_BASE_URL}/G10_U2_Girls.mp4`,
-       'G10_U3_Boys.mp4': `${RELEASES_BASE_URL}/G10_U3_Boys.mp4`
-     };
+    const RELEASES_BASE_URL = 'https://github.com/Adeil100/LMS-XREADER/releases/download/videos-v1';
+    const videoMappings = {
+      'G10_U1_Boys.mp4': `${RELEASES_BASE_URL}/G10_U1_Boys.mp4`,
+      'G10_U1_Girls.mp4': `${RELEASES_BASE_URL}/G10_U1_Girls.mp4`,
+      'G10_U2_Boys.mp4': `${RELEASES_BASE_URL}/G10_U2_Boys.mp4`,
+      'G10_U2_Girls.mp4': `${RELEASES_BASE_URL}/G10_U2_Girls.mp4`,
+      'G10_U3_Boys.mp4': `${RELEASES_BASE_URL}/G10_U3_Boys.mp4`,
+      'G10_U3_Girls.mp4': `${RELEASES_BASE_URL}/G10_U3_Girls.mp4`,
+      'G10_U4_Boys.mp4': `${RELEASES_BASE_URL}/G10_U4_Boys.mp4`,
+      'G10_U4_Girls.mp4': `${RELEASES_BASE_URL}/G10_U4_Girls.mp4`
+    };
 
-     // Intercept iframe postMessage to rewrite video URLs
-     window.addEventListener('message', (event) => {
-       if (event.data && event.data.type === 'loadVideo') {
-         const videoName = event.data.filename;
-         const releaseUrl = videoMappings[videoName];
-         if (releaseUrl) {
-           event.source.postMessage({
-             type: 'videoUrl',
-             url: releaseUrl
-           }, '*');
-         }
-       }
-     });
+    function findMappedVideoUrl(text) {
+      if (!text) return null;
+      const match = text.match(/G10_[A-Za-z0-9_]+\.mp4/i);
+      if (!match) return null;
+      return videoMappings[match[0]] || null;
+    }
+
+    function rewriteIframeVideoLinks() {
+      const iframe = document.getElementById('pageFrame');
+      if (!iframe || !iframe.contentDocument) return;
+
+      const doc = iframe.contentDocument;
+
+      doc.querySelectorAll('a[href]').forEach((anchor) => {
+        const href = anchor.getAttribute('href');
+        const mappedUrl = findMappedVideoUrl(href);
+        if (mappedUrl) {
+          anchor.setAttribute('href', `javascript:window.open('${mappedUrl}')`);
+        }
+      });
+
+      doc.querySelectorAll('video[src], source[src]').forEach((media) => {
+        const src = media.getAttribute('src');
+        const mappedUrl = findMappedVideoUrl(src);
+        if (mappedUrl) {
+          media.setAttribute('src', mappedUrl);
+        }
+      });
+    }
 
     const pages = [
       'book/Grade_10_Unit_1-1.xhtml',
@@ -245,6 +265,11 @@
     ];
     
     let currentPage = 0;
+    const pageFrame = document.getElementById('pageFrame');
+
+    pageFrame.addEventListener('load', () => {
+      rewriteIframeVideoLinks();
+    });
 
     function goToPage(n) {
       if (n < 0 || n >= pages.length) return;
@@ -253,25 +278,12 @@
       document.getElementById('pageNum').textContent = `Page ${currentPage + 1} / ${pages.length}`;
       document.getElementById('prevBtn').disabled = currentPage <= 0;
       document.getElementById('nextBtn').disabled = currentPage >= pages.length - 1;
-
-           // Inject video URL mapping script into iframe
-           setTimeout(() => {
-             try {
-               const iframe = document.getElementById('pageFrame');
-               if (iframe && iframe.contentWindow) {
-                 iframe.contentWindow.videoMappings = videoMappings;
-               }
-             } catch (e) {
-               // Cross-origin or not yet loaded
-             }
-           }, 100);
     }
 
     function nextPage() { goToPage(currentPage + 1); }
     function prevPage() { goToPage(currentPage - 1); }
 
-    // init button state
-    document.getElementById('prevBtn').disabled = true;
+    goToPage(0);
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') nextPage();
