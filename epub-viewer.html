@@ -74,33 +74,21 @@
       padding: 20px;
     }
 
-    #book { width: 100%; max-width: 800px; margin: 0 auto; }
-
-    #loading {
-      position: absolute;
-      inset: 60px 0 0 0;
+    #viewer {
+      flex: 1;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      background: #1a1a2e;
-      color: rgba(255,255,255,0.6);
-      font-size: 0.95rem;
-      pointer-events: none;
-      z-index: 10;
+      background: #111;
     }
 
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255,255,255,0.15);
-      border-top-color: #7ec8e3;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
+    #pageFrame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
     }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 
@@ -111,65 +99,37 @@
     <h1>📗 EPUB Viewer — Grade 10 Term 3</h1>
     <div class="controls">
       <button id="prevBtn" onclick="prevPage()">← Prev</button>
-      <span id="pageNum">Page 1</span>
+      <span id="pageNum">Page 1 / 9</span>
       <button id="nextBtn" onclick="nextPage()">Next →</button>
     </div>
   </header>
 
-  <div id="loading">
-    <div class="spinner"></div>
-    <span>Loading EPUB… this may take a moment</span>
-  </div>
-
   <div id="viewer">
-    <div id="book"></div>
+    <iframe id="pageFrame" src="Payload/1.1.1/OEBPS/assets/1/page.xhtml"></iframe>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.88/dist/epub.min.js"></script>
 
   <script>
-    const epubUrl = 'Payload/1.1.1/OEBPS/content.opf';
-    const book = ePub(epubUrl);
-    const rendition = book.renderTo("book", { width: "100%", height: 600 });
-    let currentLocation = 0;
+    const totalPages = 9;
+    let currentPage = 1;
 
-    rendition.display().then(() => {
-      document.getElementById("loading").style.display = "none";
-      updatePageNumber();
-    }).catch(err => {
-      document.getElementById("loading").innerHTML = '<span style="color: #ff6b6b;">Failed to load EPUB. Please try again.</span>';
-      console.error(err);
-    });
-
-    function nextPage() {
-      rendition.next();
-      updatePageNumber();
+    function goToPage(n) {
+      if (n < 1 || n > totalPages) return;
+      currentPage = n;
+      document.getElementById('pageFrame').src = `Payload/1.1.1/OEBPS/assets/${currentPage}/page.xhtml`;
+      document.getElementById('pageNum').textContent = `Page ${currentPage} / ${totalPages}`;
+      document.getElementById('prevBtn').disabled = currentPage <= 1;
+      document.getElementById('nextBtn').disabled = currentPage >= totalPages;
     }
 
-    function prevPage() {
-      rendition.prev();
-      updatePageNumber();
-    }
+    function nextPage() { goToPage(currentPage + 1); }
+    function prevPage() { goToPage(currentPage - 1); }
 
-    function updatePageNumber() {
-      rendition.currentLocation().then(loc => {
-        currentLocation = loc.start.percentage;
-        const percent = Math.round(currentLocation * 100);
-        document.getElementById("pageNum").textContent = percent + "%";
-        document.getElementById("prevBtn").disabled = percent <= 0;
-        document.getElementById("nextBtn").disabled = percent >= 100;
-      });
-    }
+    // init button state
+    document.getElementById('prevBtn').disabled = true;
 
-    // Update on page change
-    rendition.on("relocated", updatePageNumber);
-    rendition.on("keydown", updatePageNumber);
-
-    // Keyboard navigation
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") nextPage();
-      if (e.key === "ArrowLeft") prevPage();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextPage();
+      if (e.key === 'ArrowLeft') prevPage();
     });
   </script>
 
