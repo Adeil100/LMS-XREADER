@@ -96,29 +96,175 @@
 
   <header>
     <a href="index.html">← Back</a>
-    <h1>📗 EPUB Viewer — Grade 10 Term 3</h1>
+    <h1>📗 EPUB Viewer — Business Grade 10 Term 3</h1>
     <div class="controls">
       <button id="prevBtn" onclick="prevPage()">← Prev</button>
-      <span id="pageNum">Page 1 / 9</span>
+      <span id="pageNum">Page 1 / 110</span>
       <button id="nextBtn" onclick="nextPage()">Next →</button>
     </div>
   </header>
 
   <div id="viewer">
-    <iframe id="pageFrame" src="Payload/1.1.1/OEBPS/assets/1/page.xhtml"></iframe>
+    <iframe id="pageFrame" src="book/Grade_10_Unit_1-1.xhtml"></iframe>
   </div>
 
   <script>
-    const totalPages = 9;
-    let currentPage = 1;
+     // GitHub Releases configuration for large video files
+     const RELEASES_BASE_URL = 'https://github.com/Adeil100/LMS-XREADER/releases/download/videos-v1';
+     const videoMappings = {
+       'G10_U1_Girls.mp4': `${RELEASES_BASE_URL}/G10_U1_Girls.mp4`,
+       'G10_U2_Girls.mp4': `${RELEASES_BASE_URL}/G10_U2_Girls.mp4`,
+       'G10_U3_Boys.mp4': `${RELEASES_BASE_URL}/G10_U3_Boys.mp4`
+     };
+
+     // Intercept iframe postMessage to rewrite video URLs
+     window.addEventListener('message', (event) => {
+       if (event.data && event.data.type === 'loadVideo') {
+         const videoName = event.data.filename;
+         const releaseUrl = videoMappings[videoName];
+         if (releaseUrl) {
+           event.source.postMessage({
+             type: 'videoUrl',
+             url: releaseUrl
+           }, '*');
+         }
+       }
+     });
+
+    const pages = [
+      'book/Grade_10_Unit_1-1.xhtml',
+      'book/Grade_10_Unit_1-2.xhtml',
+      'book/Grade_10_Unit_1-3.xhtml',
+      'book/Grade_10_Unit_1-4.xhtml',
+      'book/Grade_10_Unit_1-5.xhtml',
+      'book/Grade_10_Unit_1-6.xhtml',
+      'book/Grade_10_Unit_1-7.xhtml',
+      'book/Grade_10_Unit_1-8.xhtml',
+      'book/Grade_10_Unit_1-9.xhtml',
+      'book/Grade_10_Unit_1-10.xhtml',
+      'book/Grade_10_Unit_1-11.xhtml',
+      'book/Grade_10_Unit_1-12.xhtml',
+      'book/Grade_10_Unit_1-13.xhtml',
+      'book/Grade_10_Unit_1-14.xhtml',
+      'book/Grade_10_Unit_1-15.xhtml',
+      'book/Grade_10_Unit_1-16.xhtml',
+      'book/Grade_10_Unit_1-17.xhtml',
+      'book/Grade_10_Unit_1-18.xhtml',
+      'book/Grade_10_Unit_1-19.xhtml',
+      'book/Grade_10_Unit_1-20.xhtml',
+      'book/Grade_10_Unit_1-21.xhtml',
+      'book/Grade_10_Unit_1-22.xhtml',
+      'book/Grade_10_Unit_1-23.xhtml',
+      'book/Grade_10_Unit_1-24.xhtml',
+      'book/Grade_10_Unit_1-25.xhtml',
+      'book/Grade_10_Unit_1-26.xhtml',
+      'book/Grade_10_Unit_1-27.xhtml',
+      'book/Grade_10_Unit_1-28.xhtml',
+      'book/Grade_10_Unit_1-29.xhtml',
+      'book/Grade_10_Unit_2-1.xhtml',
+      'book/Grade_10_Unit_2-2.xhtml',
+      'book/Grade_10_Unit_2-3.xhtml',
+      'book/Grade_10_Unit_2-4.xhtml',
+      'book/Grade_10_Unit_2-5.xhtml',
+      'book/Grade_10_Unit_2-6.xhtml',
+      'book/Grade_10_Unit_2-7.xhtml',
+      'book/Grade_10_Unit_2-8.xhtml',
+      'book/Grade_10_Unit_2-9.xhtml',
+      'book/Grade_10_Unit_2-10.xhtml',
+      'book/Grade_10_Unit_2-11.xhtml',
+      'book/Grade_10_Unit_2-12.xhtml',
+      'book/Grade_10_Unit_2-13.xhtml',
+      'book/Grade_10_Unit_2-14.xhtml',
+      'book/Grade_10_Unit_2-15.xhtml',
+      'book/Grade_10_Unit_2-16.xhtml',
+      'book/Grade_10_Unit_2-17.xhtml',
+      'book/Grade_10_Unit_2-18.xhtml',
+      'book/Grade_10_Unit_2-19.xhtml',
+      'book/Grade_10_Unit_2-20.xhtml',
+      'book/Grade_10_Unit_2-21.xhtml',
+      'book/Grade_10_Unit_2-22.xhtml',
+      'book/Grade_10_Unit_2-23.xhtml',
+      'book/Grade_10_Unit_2-24.xhtml',
+      'book/Grade_10_Unit_2-25.xhtml',
+      'book/Grade_10_Unit_2-26.xhtml',
+      'book/Grade_10_Unit_2-27.xhtml',
+      'book/Grade_10_Unit_2-28.xhtml',
+      'book/Grade_10_Unit_2-29.xhtml',
+      'book/Grade_10_Unit_2-30.xhtml',
+      'book/Grade_10_Unit_2-31.xhtml',
+      'book/Grade_10_Unit_2-32.xhtml',
+      'book/Grade_10_Unit_2-33.xhtml',
+      'book/Grade_10_Unit_2-34.xhtml',
+      'book/Grade_10_Unit_2-35.xhtml',
+      'book/Grade_10_Unit_2-36.xhtml',
+      'book/Grade_10_Unit_3-1.xhtml',
+      'book/Grade_10_Unit_3-2.xhtml',
+      'book/Grade_10_Unit_3-3.xhtml',
+      'book/Grade_10_Unit_3-4.xhtml',
+      'book/Grade_10_Unit_3-5.xhtml',
+      'book/Grade_10_Unit_3-6.xhtml',
+      'book/Grade_10_Unit_3-7.xhtml',
+      'book/Grade_10_Unit_3-8.xhtml',
+      'book/Grade_10_Unit_3-9.xhtml',
+      'book/Grade_10_Unit_3-10.xhtml',
+      'book/Grade_10_Unit_3-11.xhtml',
+      'book/Grade_10_Unit_3-12.xhtml',
+      'book/Grade_10_Unit_3-13.xhtml',
+      'book/Grade_10_Unit_3-14.xhtml',
+      'book/Grade_10_Unit_3-15.xhtml',
+      'book/Grade_10_Unit_3-16.xhtml',
+      'book/Grade_10_Unit_3-17.xhtml',
+      'book/Grade_10_Unit_3-18.xhtml',
+      'book/Grade_10_Unit_3-19.xhtml',
+      'book/Grade_10_Unit_3-20.xhtml',
+      'book/Grade_10_Unit_3-21.xhtml',
+      'book/Grade_10_Unit_3-22.xhtml',
+      'book/Grade_10_Unit_4-1.xhtml',
+      'book/Grade_10_Unit_4-2.xhtml',
+      'book/Grade_10_Unit_4-3.xhtml',
+      'book/Grade_10_Unit_4-4.xhtml',
+      'book/Grade_10_Unit_4-5.xhtml',
+      'book/Grade_10_Unit_4-6.xhtml',
+      'book/Grade_10_Unit_4-7.xhtml',
+      'book/Grade_10_Unit_4-8.xhtml',
+      'book/Grade_10_Unit_4-9.xhtml',
+      'book/Grade_10_Unit_4-10.xhtml',
+      'book/Grade_10_Unit_4-11.xhtml',
+      'book/Grade_10_Unit_4-12.xhtml',
+      'book/Grade_10_Unit_4-13.xhtml',
+      'book/Grade_10_Unit_4-14.xhtml',
+      'book/Grade_10_Unit_4-15.xhtml',
+      'book/Grade_10_Unit_4-16.xhtml',
+      'book/Grade_10_Unit_4-17.xhtml',
+      'book/Grade_10_Unit_4-18.xhtml',
+      'book/Grade_10_Unit_4-19.xhtml',
+      'book/Grade_10_Unit_4-20.xhtml',
+      'book/Grade_10_Unit_4-21.xhtml',
+      'book/Grade_10_Unit_4-22.xhtml',
+      'book/Grade_10_Unit_4-23.xhtml'
+    ];
+    
+    let currentPage = 0;
 
     function goToPage(n) {
-      if (n < 1 || n > totalPages) return;
+      if (n < 0 || n >= pages.length) return;
       currentPage = n;
-      document.getElementById('pageFrame').src = `Payload/1.1.1/OEBPS/assets/${currentPage}/page.xhtml`;
-      document.getElementById('pageNum').textContent = `Page ${currentPage} / ${totalPages}`;
-      document.getElementById('prevBtn').disabled = currentPage <= 1;
-      document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+      document.getElementById('pageFrame').src = pages[currentPage];
+      document.getElementById('pageNum').textContent = `Page ${currentPage + 1} / ${pages.length}`;
+      document.getElementById('prevBtn').disabled = currentPage <= 0;
+      document.getElementById('nextBtn').disabled = currentPage >= pages.length - 1;
+
+           // Inject video URL mapping script into iframe
+           setTimeout(() => {
+             try {
+               const iframe = document.getElementById('pageFrame');
+               if (iframe && iframe.contentWindow) {
+                 iframe.contentWindow.videoMappings = videoMappings;
+               }
+             } catch (e) {
+               // Cross-origin or not yet loaded
+             }
+           }, 100);
     }
 
     function nextPage() { goToPage(currentPage + 1); }
