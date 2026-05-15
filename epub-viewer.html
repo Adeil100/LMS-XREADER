@@ -92,6 +92,7 @@
 
     .pageShell {
       position: relative;
+      height: 100%;
       overflow: hidden;
       border-radius: 18px;
       background: #ffffff;
@@ -362,10 +363,8 @@
     const interactiveModal = document.getElementById('interactiveModal');
     const interactiveFrame = document.getElementById('interactiveFrame');
     const closeInteractive = document.getElementById('closeInteractive');
-    const viewer = document.getElementById('viewer');
 
     let currentPage = 0;
-    let lastWheelNavAt = 0;
 
     function findMappedVideoUrl(text) {
       if (!text) return null;
@@ -461,22 +460,6 @@
       if (event.key === 'ArrowDown') nextPage();
       if (event.key === 'ArrowUp') prevPage();
     });
-
-    viewer.addEventListener('wheel', (event) => {
-      if (interactiveModal.classList.contains('open')) return;
-      if (Math.abs(event.deltaY) < 18) return;
-
-      const now = Date.now();
-      if (now - lastWheelNavAt < 260) return;
-      lastWheelNavAt = now;
-
-      event.preventDefault();
-      if (event.deltaY > 0) {
-        nextPage();
-      } else {
-        prevPage();
-      }
-    }, { passive: false });
 
     goToPage(0);
   </script>
